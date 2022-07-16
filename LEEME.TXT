@@ -1,0 +1,8 @@
+Notas:
+
+1. Los htmls que contiene son:
+ index.html     : Hace una redirección hacia el controlador
+ formulario.html: Es una plantilla simple de ejemplo enla que está basado qtx.web.FormularioServlet.java
+ borrame.stml   : Es una copia del código html enviado al navegador por qtx.web.FormularioServlet.java
+ 
+ 2. La aplicación funciona con Java 8, Tomcat 9 y la spec 4 de javax.servlet
