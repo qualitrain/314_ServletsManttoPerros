@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<HTML>
+<HEAD>
+<TITLE>Perro</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+<link rel="stylesheet" href="css/formStyle.css" type="text/css" />
+</HEAD>
+<BODY>
+	<h3>Alta de Perros</h3>
+	<form action="perroweb" method="post">
+		<label for="idPerro">Id:</label><input type="text" id="idPerro"
+			name="id" value=""><br>
+		<br>
+		<label for="nombrePerro">Nombre:</label><input type="text"
+			id="nombrePerro" name="nombre" value=""><br>
+		<br>
+		<label for="edadPerro">Edad:</label><input type="text" id="edadPerro"
+			name="edad" value=""><br>
+		<br>
+		<label for="razaPerro">Raza:</label><input type="text" id="razaPerro"
+			name="raza" value=""><br>
+		<br>
+		<input type="hidden" name="vista" value="formAlta"><br>
+		<br>
+		<input type="hidden" name="operacion" value="registro"><br>
+		<br>
+		<input type="submit" value="Registrar">
+	</form>
+	<br>
+	<span class="mensaje">Formulario con errores (3)</span>
+	<br>
+	<br>
+	<table>
+		<thead>
+			<tr>
+				<th>Campo</th>
+				<th>Valor</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>nombre</td>
+				<td>no tiene valor y es obligatorio</td>
+			</tr>
+			<tr>
+				<td>raza</td>
+				<td>no tiene valor y es obligatorio</td>
+			</tr>
+			<tr>
+				<td>edad</td>
+				<td>es un valor obligatorio</td>
+			</tr>
+		</tbody>
+	</table>
+</BODY>
+</HTML>

@@ -2,19 +2,7 @@ Notas:
 
 1. Los htmls que contiene son:
  index.html     : Hace una redirección hacia el controlador
+ formulario.html: Es una plantilla simple de ejemplo enla que está basado qtx.web.FormularioServlet.java
+ borrame.stml   : Es una copia del código html enviado al navegador por qtx.web.FormularioServlet.java
  
-2. La aplicación funciona con Java 8, Tomcat 9 y la spec 4 de javax.servlet
-
-3. El controlador:
-   a) recupera el parámetro "modo" a nivel aplicación (declarado en web.xml)
-   b) si su valor es "debug" colocará un atributo en la sesión para que Formulario.jsp
-      muestre la ubicación del servlet generado (entre otras cosas)
-   c) Remplaza las invocaciones previas a FormularioServlet por invocaciones a Formulario.jsp
-      
-4. Formulario.jsp:
-   a) Ejemplifica el uso de objetos implícitos
-   b) Ejemplifica el uso de scriptlets, directivas JSP y expresiones JSP
-   
-5. Se comenta la anotación @WebServlet("/formPerro") en FormularioServlet para evitar su registro como componente web
-   
-6. Se eliminaron htmls que ya no se requieren
+ 2. La aplicación funciona con Java 8, Tomcat 9 y la spec 4 de javax.servlet
