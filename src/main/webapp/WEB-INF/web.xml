@@ -9,5 +9,9 @@
   </welcome-file-list>
   <!-- -
    -->
+   <context-param>
+	  <param-name>modo</param-name>
+	  <param-value>debug</param-value>
+  </context-param>
   
 </web-app>

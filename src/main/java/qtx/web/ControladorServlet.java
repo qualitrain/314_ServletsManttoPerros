@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,8 +20,28 @@ import qtx.negocio.servicios.GestorPerros;
 
 @WebServlet("/perroweb")
 public class ControladorServlet extends HttpServlet {
+	public static final int MODO_DEBUG = 1;
+	public static final int MODO_INFO = 0;
+	
 	private static final long serialVersionUID = 1L;
-    private GestorPerros gp = new GestorPerros();
+	private int MODO = ControladorServlet.MODO_INFO;
+	
+	private GestorPerros gp = new GestorPerros();
+	
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		String paramModo  = config.getServletContext()
+				                  .getInitParameter("modo");
+		if(paramModo == null)
+			this.MODO = ControladorServlet.MODO_INFO;
+		else
+		if(paramModo.equalsIgnoreCase("debug"))
+			this.MODO = ControladorServlet.MODO_DEBUG;
+		else
+			this.MODO = ControladorServlet.MODO_INFO;
+	}
+	
     public ControladorServlet() {
         super();
     }
@@ -38,9 +59,13 @@ public class ControladorServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String vistaOrigen = request.getParameter("vista");
-		HttpSession sesion = request.getSession(true);
+		
+		HttpSession sesion = request.getSession(true);		
+		// Publicar modo debug para que se enteren las vistas
+		sesion.setAttribute("modo", this.MODO);
+		
 		if(vistaOrigen == null) {
-			invocarA(request,response,"/formPerro");
+			invocarA(request,response,"/Formulario.jsp");
 			return;
 		}
 		switch(vistaOrigen) {
@@ -56,13 +81,13 @@ public class ControladorServlet extends HttpServlet {
 					  sesion.removeAttribute("errores");
 					  sesion.removeAttribute("params");
 					  sesion.setAttribute("mensaje", "Perro dado de alta: " + perroNvo);
-					  invocarA(request,response,"/formPerro");
+					  invocarA(request,response,"/Formulario.jsp");
 					  return;
 				  }
 				  sesion.setAttribute("errores", listErr);
 				  sesion.setAttribute("params", paramsPerro);
 				  sesion.setAttribute("mensaje", "Formulario con errores (" + listErr.size() + ")");
-				  invocarA(request,response,"/formPerro");
+				  invocarA(request,response,"/Formulario.jsp");
 				  return;
 			  }
 		case "menu": return;

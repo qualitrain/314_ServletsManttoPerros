@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import qtx.negocio.servicios.ErrorValidacion;
 
-@WebServlet("/formPerro")
+//@WebServlet("/formPerro")
 public class FormularioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
