@@ -61,27 +61,18 @@ span{
 </head>
 <body>
 <%
-	Map<String,String> paramsPerro =(Map<String, String>) session.getAttribute("params");
-	if(paramsPerro == null)
-		paramsPerro= new HashMap<String,String>();
-	String mensaje = (String) session.getAttribute("mensaje");
-	mensaje = mensaje == null ? "" : mensaje;
-	String idPerro = paramsPerro.getOrDefault("id", "");
-	String edad = paramsPerro.getOrDefault("edad", "");
-	String nombre = paramsPerro.getOrDefault("nombre", "");
-	String raza = paramsPerro.getOrDefault("raza", "");
 	List<ErrorValidacion> listErr = (List<ErrorValidacion>) session.getAttribute("errores");
 %>
 <h3>Alta de Perros</h3>
 	<form action="perroweb" method="post">
 		<label for="idPerro">Id:</label>
-		<input type="text" id="idPerro" name="id" value="<%=idPerro%>"><br><br>
+		<input type="text" id="idPerro" name="id" value='${params["id"]}'><br><br>
 		<label for="nombrePerro">Nombre:</label>
-		<input type="text" id="nombrePerro" name="nombre" value="<%=nombre%>"><br><br>
+		<input type="text" id="nombrePerro" name="nombre" value='${params["nombre"]}'><br><br>
 		<label for="edadPerro">Edad:</label>
-		<input type="text" id="edadPerro"  name="edad"  value="<%=edad%>"><br><br>
+		<input type="text" id="edadPerro"  name="edad"  value='${params["edad"]}'><br><br>
 		<label for="razaPerro">Raza:</label>
-		<input type="text" id="razaPerro"  name="raza" value="<%=raza%>"><br><br>
+		<input type="text" id="razaPerro"  name="raza" value='${params["raza"]}'><br><br>
 		<input type="hidden" name="vista" value="formAlta">
 		<input type="hidden" name="operacion" value="registro">
 		<input type="submit" value="Registrar">
@@ -106,7 +97,7 @@ span{
 <% } %>
 <br>
 <p>
-<span><%=mensaje%></span>
+<span>${mensaje}</span>
 </p>
 
 <% 

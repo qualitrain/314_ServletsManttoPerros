@@ -14,7 +14,7 @@ Notas:
 4. Formulario.jsp:
    a) Ejemplifica el uso de objetos implícitos
    b) Ejemplifica el uso de scriptlets, directivas JSP y expresiones JSP
+   c) Ejemplifica el uso de JSP EL
    
 5. Se comenta la anotación @WebServlet("/formPerro") en FormularioServlet para evitar su registro como componente web
    
-6. Se eliminaron htmls que ya no se requieren
