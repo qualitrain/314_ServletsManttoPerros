@@ -62,7 +62,8 @@ public class ControladorServlet extends HttpServlet {
 		
 		HttpSession sesion = request.getSession(true);		
 		// Publicar modo debug para que se enteren las vistas
-		sesion.setAttribute("modo", this.MODO);
+		if(this.MODO == ControladorServlet.MODO_DEBUG)
+			sesion.setAttribute("modo", "debug");
 		
 		if(vistaOrigen == null) {
 			invocarA(request,response,"/Formulario.jsp");

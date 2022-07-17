@@ -13,5 +13,12 @@
 	  <param-name>modo</param-name>
 	  <param-value>debug</param-value>
   </context-param>
+  <session-config>
+	<session-timeout>1</session-timeout>  
+	<cookie-config>
+		<http-only>true</http-only>
+		<max-age>60</max-age>		
+	</cookie-config>
+  </session-config>
   
 </web-app>

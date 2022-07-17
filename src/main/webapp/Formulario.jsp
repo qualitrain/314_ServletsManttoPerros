@@ -1,9 +1,13 @@
+<!--  
 <%@page import="qtx.web.ControladorServlet"%>
 <%@ page import="java.util.*" %>
 <%@ page import="qtx.negocio.servicios.ErrorValidacion" %>
 <%@page import="java.net.URL"%>
+-->
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c"  
+            uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,9 +64,6 @@ span{
 </style>
 </head>
 <body>
-<%
-	List<ErrorValidacion> listErr = (List<ErrorValidacion>) session.getAttribute("errores");
-%>
 <h3>Alta de Perros</h3>
 	<form action="perroweb" method="post">
 		<label for="idPerro">Id:</label>
@@ -77,74 +78,70 @@ span{
 		<input type="hidden" name="operacion" value="registro">
 		<input type="submit" value="Registrar">
 	</form>
-<% if (listErr != null && listErr.size() > 0){ %>
-	<table>
-	<thead>
-		<tr>
-		<th>Campo</th><th>Valor</th>
-		</tr>
-	</thead>
-	<tbody>
-	<%	for(ErrorValidacion errI : listErr) { %>
-		<tr> 
-			<td><%=errI.getCampo()%></td>
-			<td><%=errI.getDescripcion()%></td>
-		</tr>
-	<% } %>
-	
-	</tbody>
-	</table>
-<% } %>
-<br>
-<p>
-<span>${mensaje}</span>
-</p>
+	<c:if test="${not empty errores}">
+		<table>
+		<thead>
+			<tr>
+			<th>Campo</th><th>Valor</th>
+			</tr>
+		</thead>
+		<tbody>
+		<c:forEach items="${errores}" var="errI">
+			<tr> 
+				<td>${errI.campo}</td>
+				<td>${errI.descripcion}</td>
+			</tr>
+		</c:forEach>
+		
+		</tbody>
+		</table>
+	</c:if>
+	<br>
+	<p>
+	<span>${mensaje}</span>
+	</p>
 
-<% 
-   Integer modo = (Integer)session.getAttribute("modo");
-   boolean debugOn = (modo == null) ? false : (modo == ControladorServlet.MODO_DEBUG) ? true : false;
-   if (debugOn){ 
-   %>
-   <br>
-   <hr>
-   <br>
-   <table class="debug">
-   	<tr>
-      	<td>Este JSP se está ejecutando en la fecha/hora siguiente:</td>
-      	<td> <%= new java.util.Date() %></td>
-	</tr> 
-   	<tr>
-   		<td>La clase de este JSP es:</td>
-   		<td>${pageScope["javax.servlet.jsp.jspPage"].getClass().getName()} </td>
-   		<!--pageScope.class.name  -->
-	</tr>
-   	<tr>
-   		<td>El Servlet generado está en:</td>
-   		<td>${pageScope["javax.servlet.jsp.jspPage"].getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath()}</td>
-   		<!-- page.getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath() -->
-	</tr>
-   	<tr>
-   		<td>Id de la sesión es:</td>
-   		<td>${pageScope["javax.servlet.jsp.jspSession"].id}</td>
-   		<!--session.getId()  -->
-	</tr>
-    <tr>
-   		<td>Método http:</td> 
-   		<td>${pageScope["javax.servlet.jsp.jspRequest"].method}</td>
-   		<!-- request.getMethod() -->
-	</tr>
-     <tr>
-   		<td>pageContext:</td>
-   		<td>${pageScope["javax.servlet.jsp.jspPageContext"]}</td>
-   		<!-- pageContext.getClass().getName() -->
-	</tr>
-     <tr>
-   		<td>application:</td>
-   		<td>${pageScope["javax.servlet.jsp.jspApplication"].contextPath}</td>
-   		<!-- application.getContextPath() -->
-	</tr>
-   </table>
-<% } %>
+   <c:if test="${modo == 'debug'}">
+	   <br>
+	   <hr>
+	   <br>
+	   <table class="debug">
+	   	<tr>
+	      	<td>Este JSP se está ejecutando en la fecha/hora siguiente:</td>
+	      	<td> <%= new java.util.Date() %></td>
+		</tr> 
+	   	<tr>
+	   		<td>La clase de este JSP es:</td>
+	   		<td>${pageScope["javax.servlet.jsp.jspPage"].getClass().getName()} </td>
+	   		<!--pageScope.class.name  -->
+		</tr>
+	   	<tr>
+	   		<td>El Servlet generado está en:</td>
+	   		<td>${pageScope["javax.servlet.jsp.jspPage"].getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath()}</td>
+	   		<!-- page.getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath() -->
+		</tr>
+	   	<tr>
+	   		<td>Id de la sesión es:</td>
+	   		<td>${pageScope["javax.servlet.jsp.jspSession"].id}</td>
+	   		<!--session.getId()  -->
+		</tr>
+	    <tr>
+	   		<td>Método http:</td> 
+	   		<td>${pageScope["javax.servlet.jsp.jspRequest"].method}</td>
+	   		<!-- request.getMethod() -->
+		</tr>
+	     <tr>
+	   		<td>pageContext:</td>
+	   		<td>${pageScope["javax.servlet.jsp.jspPageContext"]}</td>
+	   		<!-- pageContext.getClass().getName() -->
+		</tr>
+	     <tr>
+	   		<td>application:</td>
+	   		<td>${pageScope["javax.servlet.jsp.jspApplication"].contextPath}</td>
+	   		<!-- application.getContextPath() -->
+		</tr>
+	   </table>
+  </c:if>
 
 </body>
 </html>
