@@ -112,33 +112,36 @@ span{
    	<tr>
       	<td>Este JSP se está ejecutando en la fecha/hora siguiente:</td>
       	<td> <%= new java.util.Date() %></td>
-	</tr>
+	</tr> 
    	<tr>
    		<td>La clase de este JSP es:</td>
-   		<td><%=page.getClass().getName() %></td>
+   		<td>${pageScope["javax.servlet.jsp.jspPage"].getClass().getName()} </td>
+   		<!--pageScope.class.name  -->
 	</tr>
    	<tr>
    		<td>El Servlet generado está en:</td>
-   		<td><%=page.getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath() %></td>
-   		<% 	
-   			URL urlServlet = page.getClass().getProtectionDomain().getCodeSource().getLocation();
-   		%>
+   		<td>${pageScope["javax.servlet.jsp.jspPage"].getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath()}</td>
+   		<!-- page.getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath() -->
 	</tr>
    	<tr>
    		<td>Id de la sesión es:</td>
-   		<td><%=session.getId() %></td>
+   		<td>${pageScope["javax.servlet.jsp.jspSession"].id}</td>
+   		<!--session.getId()  -->
 	</tr>
     <tr>
-   		<td>Método http:</td>
-   		<td><%=request.getMethod() %></td>
+   		<td>Método http:</td> 
+   		<td>${pageScope["javax.servlet.jsp.jspRequest"].method}</td>
+   		<!-- request.getMethod() -->
 	</tr>
      <tr>
    		<td>pageContext:</td>
-   		<td><%=pageContext.getClass().getName() %></td>
+   		<td>${pageScope["javax.servlet.jsp.jspPageContext"]}</td>
+   		<!-- pageContext.getClass().getName() -->
 	</tr>
      <tr>
    		<td>application:</td>
-   		<td><%=application.getContextPath()%></td>
+   		<td>${pageScope["javax.servlet.jsp.jspApplication"].contextPath}</td>
+   		<!-- application.getContextPath() -->
 	</tr>
    </table>
 <% } %>
