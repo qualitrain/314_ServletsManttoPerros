@@ -65,12 +65,13 @@ public class ControladorServlet extends HttpServlet {
 		sesion.setAttribute("modo", this.MODO);
 		
 		if(vistaOrigen == null) {
-			invocarA(request,response,"/Formulario.jsp");
+			invocarA(request,response,"/menu.html");
 			return;
 		}
+		String operacion="";
 		switch(vistaOrigen) {
 		case "formAlta": 
-			  String operacion = request.getParameter("operacion");
+			  operacion = request.getParameter("operacion");
 			  switch(operacion) {
 			  case "registro":
 				  Map<String,String> paramsPerro = this.getParamsPerro(request);
@@ -89,8 +90,45 @@ public class ControladorServlet extends HttpServlet {
 				  sesion.setAttribute("mensaje", "Formulario con errores (" + listErr.size() + ")");
 				  invocarA(request,response,"/Formulario.jsp");
 				  return;
+			  case "regresar":
+				  sesion.removeAttribute("errores");
+				  sesion.removeAttribute("params");
+				  sesion.removeAttribute("mensaje");
+				  sesion.removeAttribute("modo");
+				  invocarA(request,response,"/menu.html");
+				  return;
+			   default:
+			      System.out.println("operación desconocida pedida por formAlta: " + operacion);
+			      return;
 			  }
-		case "menu": return;
+		case "menu": 
+			  operacion = request.getParameter("operacion");
+			  switch(operacion) {
+			  case "AltaPerro":
+					invocarA(request,response,"/Formulario.jsp");
+					return;
+			  case "ConsultaPerros":
+				  	List<Perro> listPerros = this.gp.getPerrosTodos();
+				  	sesion.setAttribute("perros", listPerros);
+				  	invocarA(request,response,"/ConsultaPerros.jsp");
+					return;
+			  default:
+				  System.out.println("operación desconocida pedida por menu: " + operacion);
+				  return;
+			  }
+		case "consultaPerros":
+			  operacion = request.getParameter("operacion");
+			  switch(operacion) {
+			  case "regresar":
+				  sesion.removeAttribute("perros");
+				  sesion.removeAttribute("modo");
+				  invocarA(request,response,"/menu.html");
+				  return;
+			  default:
+				  System.out.println("operación desconocida pedida por consultaPerros: " + operacion);
+				  return;				  
+			  
+			  }			
 		}
 	}
 	private Map<String, String> getParamsPerro(HttpServletRequest request) {

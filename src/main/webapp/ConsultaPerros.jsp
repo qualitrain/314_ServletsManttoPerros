@@ -1,4 +1,5 @@
 <%@page import="qtx.web.ControladorServlet"%>
+<%@page import="qtx.negocio.conceptos.*" %>
 <%@page import="java.util.*" %>
 <%@page import="qtx.negocio.servicios.ErrorValidacion" %>
 <%@page import="java.net.URL"%>
@@ -57,47 +58,32 @@ span{
 	color: blue;
 	font-weight: bold;
 }
+
 </style>
 </head>
 <body>
+	<h3>Perros registrados</h3>	
+
+
 <%
-	Map<String,String> paramsPerro =(Map<String, String>) session.getAttribute("params");
-	if(paramsPerro == null)
-		paramsPerro= new HashMap<String,String>();
-	String mensaje = (String) session.getAttribute("mensaje");
-	mensaje = mensaje == null ? "" : mensaje;
-	String idPerro = paramsPerro.getOrDefault("id", "");
-	String edad = paramsPerro.getOrDefault("edad", "");
-	String nombre = paramsPerro.getOrDefault("nombre", "");
-	String raza = paramsPerro.getOrDefault("raza", "");
-	List<ErrorValidacion> listErr = (List<ErrorValidacion>) session.getAttribute("errores");
+	List<Perro> perros = (List<Perro>) session.getAttribute("perros");
+	if(perros == null)
+		perros = new ArrayList<Perro>();
 %>
-<h3>Alta de Perros</h3>
-	<form action="perroweb" method="post">
-		<label for="idPerro">Id:</label>
-		<input type="text" id="idPerro" name="id" value="<%=idPerro%>"><br><br>
-		<label for="nombrePerro">Nombre:</label>
-		<input type="text" id="nombrePerro" name="nombre" value="<%=nombre%>"><br><br>
-		<label for="edadPerro">Edad:</label>
-		<input type="text" id="edadPerro"  name="edad"  value="<%=edad%>"><br><br>
-		<label for="razaPerro">Raza:</label>
-		<input type="text" id="razaPerro"  name="raza" value="<%=raza%>"><br><br>
-		<input type="hidden" name="vista" value="formAlta">
-		<input type="hidden" name="operacion" value="registro">
-		<input type="submit" value="Registrar">
-	</form>
-<% if (listErr != null && listErr.size() > 0){ %>
+<% if (perros.size() > 0){ %>
 	<table>
 	<thead>
 		<tr>
-		<th>Campo</th><th>Valor</th>
+		<th>Id</th><th>nombre</th><th>raza</th><th>edad</th>
 		</tr>
 	</thead>
 	<tbody>
-	<%	for(ErrorValidacion errI : listErr) { %>
+	<%	for(Perro perroI : perros) { %>
 		<tr> 
-			<td><%=errI.getCampo()%></td>
-			<td><%=errI.getDescripcion()%></td>
+			<td><%=perroI.getId()%></td>
+			<td><%=perroI.getNombre()%></td>
+			<td><%=perroI.getRaza()%></td>
+			<td><%=perroI.getEdad()%></td>
 		</tr>
 	<% } %>
 	
@@ -106,15 +92,13 @@ span{
 <% } %>
 <br>
 <p>
-<span><%=mensaje%></span>
-</p>
-<a href="./perroweb?vista=formAlta&operacion=regresar">Regresar a menu principal</a>
+<a href="./perroweb?vista=consultaPerros&operacion=regresar">Regresar a menu principal</a>
 
 <% 
    Integer modo = (Integer)session.getAttribute("modo");
    boolean debugOn = (modo == null) ? false : (modo == ControladorServlet.MODO_DEBUG) ? true : false;
    if (debugOn){ 
-   %>
+%>
    <br>
    <hr>
    <br>
