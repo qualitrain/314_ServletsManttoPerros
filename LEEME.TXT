@@ -5,4 +5,4 @@ Notas:
  formulario.html: Es una plantilla simple de ejemplo enla que está basado qtx.web.FormularioServlet.java
  borrame.html   : Es una copia del código html enviado al navegador por qtx.web.FormularioServlet.java
  
- 2. La aplicación funciona con Java 11, Tomcat 9 y la spec 4 de javax.servlet
+ 2. La aplicación funciona con Java 17, Tomcat 10.1 y la spec 6 de javax.servlet
